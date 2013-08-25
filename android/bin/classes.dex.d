@@ -1,0 +1,26 @@
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes.dex : \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/kde/necessitas/ministro/IMinistro$Stub$Proxy.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/kde/necessitas/ministro/IMinistroCallback.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/kde/necessitas/ministro/IMinistro$Stub.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/kde/necessitas/ministro/IMinistroCallback$Stub.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/kde/necessitas/ministro/IMinistro.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/kde/necessitas/ministro/IMinistroCallback$Stub$Proxy.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/qtproject/example/AntennaRotor/R.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/qtproject/example/AntennaRotor/BuildConfig.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/qtproject/example/AntennaRotor/R$attr.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/qtproject/example/AntennaRotor/R$layout.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/qtproject/example/AntennaRotor/R$string.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/qtproject/example/AntennaRotor/R$array.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/qtproject/qt5/android/bindings/QtActivity$3.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/qtproject/qt5/android/bindings/QtActivity$3$1.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/qtproject/qt5/android/bindings/QtApplication$InvokeResult.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/qtproject/qt5/android/bindings/QtActivity.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/qtproject/qt5/android/bindings/QtActivity$5.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/qtproject/qt5/android/bindings/QtActivity$2.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/qtproject/qt5/android/bindings/QtApplication.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/qtproject/qt5/android/bindings/QtActivity$6.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/qtproject/qt5/android/bindings/QtActivity$3$1$1.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/qtproject/qt5/android/bindings/QtActivity$4.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/classes/org/qtproject/qt5/android/bindings/QtActivity$1.class \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/dexedLibs/annotations-c2cc09c732640d25eaa2a4fec0a432b1.jar \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/dexedLibs/--Managed_by_Qt_Creator--QtAndroid-bundled-d5875950dfb6ed2d155a491e999e209a.jar \

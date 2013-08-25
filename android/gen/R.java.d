@@ -1,0 +1,24 @@
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/gen/org/qtproject/example/AntennaRotor/R.java \
+ : /media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-id/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/layout/splash.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-ms/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-de/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-zh-rTW/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-el/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-pt-rBR/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-zh-rCN/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-ja/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-fr/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-rs/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values/libs.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-et/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-nl/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-it/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-ro/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-fa/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-ru/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-es/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-pl/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/res/values-nb/strings.xml \
+/media/frohro/60f7438d-881a-41e3-9c96-76522ce7d610/frohro/Projects/AntennaRotor/android/bin/AndroidManifest.xml \
