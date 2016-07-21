@@ -5,10 +5,10 @@
 #-------------------------------------------------
 
 QT       += core gui\
+        testlib\
         network\
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
 TARGET = AntennaRotor
 TEMPLATE = app
 
@@ -16,14 +16,17 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     rotctlsocket.cpp \
-    directioncontrolview.cpp
+    directioncontrolview.cpp \
+    ip_dialog.cpp
 
 HEADERS  += mainwindow.h \
     rotctlsocket.h \
-    directioncontrolview.h
+    directioncontrolview.h \
+    ip_dialog.h
 
 FORMS    += \
-    mainwindow.ui
+    mainwindow.ui \
+    ip_dialog.ui
 
 OTHER_FILES += \
     android/version.xml \

@@ -14,19 +14,24 @@ MainWindow::MainWindow(QWidget *parent) :
     directionScene = new QGraphicsScene(this);
     directionScene->setSceneRect(-187,-222,400,400);
 
-   // ui->MarbleWidget->show();
-   // ui->MarbleWidget->setMapThemeId("earth/srtm/srtm.dgml");
-    //ui->graphicsView->setStyleSheet("image: url(:/Images/aeqd.png)");
-    //ui->Dial->setStyleSheet("background: red");
     ui->graphicsView->setScene(directionScene);
+    ipDialog = new IP_Dialog(this);
     myRotCtlSocket.Connect();
-    connect(rotationEstimateTimer,SIGNAL(timeout()),this,SLOT(updateProgressBar()));
-    connect(&myRotCtlSocket,SIGNAL(bearingReturned(int)),ui->lcdNumber,SLOT(display(int)));
-    connect(this, SIGNAL(setBearing(int)),ui->lcdNumber,SLOT(display(int)));
-    connect(ui->getBearingButton,SIGNAL(clicked()),&myRotCtlSocket,SLOT(getPresentBearing()));
-    connect(ui->graphicsView,SIGNAL(directionSelected(int,int)),this,SLOT(getNewDirection(int,int)));
-    connect(this,SIGNAL(setBearing(int)),&myRotCtlSocket,SLOT(setBearing(int)));
-    connect(&myRotCtlSocket,SIGNAL(bearingReturned(int)),this,SLOT(updatePointingBearing(int)));
+    if((myRotCtlSocket.connected))
+        ui->connectButton->hide();
+    else
+        ui->connectButton->show();
+
+    assert(connect(rotationEstimateTimer,SIGNAL(timeout()),this,SLOT(updateProgressBar())));
+    assert(connect(&myRotCtlSocket,SIGNAL(bearingReturned(int)),ui->lcdNumber,SLOT(display(int))));
+    assert(connect(this, SIGNAL(setBearing(int)),ui->lcdNumber,SLOT(display(int))));
+    assert(connect(ui->getBearingButton,SIGNAL(clicked()),&myRotCtlSocket,SLOT(getPresentBearing())));
+    assert(connect(ui->graphicsView,SIGNAL(directionSelected(int,int)),this,SLOT(getNewDirection(int,int))));
+    assert(connect(this,SIGNAL(setBearing(int)),&myRotCtlSocket,SLOT(setBearing(int))));
+    assert(connect(&myRotCtlSocket,SIGNAL(bearingReturned(int)),this,SLOT(updatePointingBearing(int))));
+    assert(connect(ui->ipPushButton,SIGNAL(clicked()),this,SLOT(getIPAddress())));
+    assert(connect(ipDialog,SIGNAL(changeIPAddress(QString)),this,SLOT(updateIPAddress(QString))));
+    assert(connect(&myRotCtlSocket,SIGNAL(isConnected(bool)),this,SLOT(showConnectedButton(bool))));
 
     myRotCtlSocket.getPresentBearing(); //Initialize the readout.
 }
@@ -77,20 +82,41 @@ void MainWindow::updatePointingBearing(int bearing)
     QPen redPen(Qt::red);
     QPen greenPen(Qt::green);
     QPen blueePen(Qt::blue);
-    //directionScene->addLine(-213,-178,-213+245,-178,blackPen);
-    //directionScene->addLine(0,0,245,0);
     directionScene->clear();
-   // directionScene->removeItem(directionLine);
-    //directionLine.setP1(QPointF(0,0));
-    //directionLine.setP2(QPointF(radius*sin(bearing*3.14159/180),-radius*cos(bearing*3.14159/180)));
     directionScene->addLine(0,0,radius*sin(bearing*3.14159/180),-radius*cos(bearing*3.14159/180),blackPen);
-    //directionScene->addLine((qreal)(x+radius*sin(bearing*3.14159/180)),(qreal)(y+radius*cos(bearing*3.14159/180)),(qreal)x,(qreal)y,blackPen);
-    //directionScene->addLine(-213,-178,-213+radius*sin(bearing*3.14159/180),-178-radius*cos(bearing*3.14159/180),blackPen);
-    //directionScene->addLine(directionLine);
-//    directionScene->addLine(0,0,245,0,blackPen);
-//    directionScene->addLine(0,0,0,245,redPen);
-//    directionScene->addLine(0,0,0,-245,greenPen);
-//    directionScene->addLine(0,0,-245,0,blueePen);
-//    ui->graphicsView->rotate(-90);
 
+}
+
+void MainWindow::getIPAddress()
+{
+    ipDialog->show();
+}
+
+void MainWindow::on_connectButton_clicked()
+{
+    myRotCtlSocket.Connect();
+    if(myRotCtlSocket.connected)
+        ui->connectButton->hide();
+}
+
+void MainWindow::updateIPAddress(QString ipAddress)
+{
+    qDebug() << "MainWindow::in updateIPAddress with IP address" << ipAddress;
+
+    myRotCtlSocket.setIPAddress(ipAddress);
+    if((myRotCtlSocket.connected))
+        ui->connectButton->hide();
+    else
+        ui->connectButton->show();
+}
+
+void MainWindow::showConnectedButton(bool connected)
+{
+    if(connected)
+    {
+        ui->connectButton->hide();
+        //myRotCtlSocket.getPresentBearing();
+    }
+    else
+        ui->connectButton->show();
 }

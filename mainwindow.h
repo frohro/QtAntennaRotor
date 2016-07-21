@@ -9,7 +9,11 @@
 
 #include "rotctlsocket.h"
 #include "directioncontrolview.h"
+#include  "ip_dialog.h"
+#include "ui_ip_dialog.h"
 #include <math.h>
+#include <QSignalSpy>
+#include <assert.h>
 
 namespace Ui {
 class MainWindow;
@@ -24,22 +28,29 @@ public:
     ~MainWindow();
     RotCtlSocket myRotCtlSocket;
     QTimer *rotationEstimateTimer;
+    IP_Dialog *ipDialog;
+    //QLineF directionLine;
 signals:
     void setBearing(int);
+    void newIPAddress(QString);
 
 public slots:
     void getNewDirection(int x, int y);
     void updateProgressBar();
     void updatePointingBearing(int bearing);
+    void getIPAddress();
+    void updateIPAddress(QString ipAddress);
+    void showConnectedButton(bool connected);
 
 protected:
     QGraphicsScene *directionScene;
     int radius; // of QGraphicsView
-    //QLineF directionLine;
+
+private slots:
+    void on_connectButton_clicked();
 
 private:
     Ui::MainWindow *ui;
-
 };
 
 #endif // MAINWINDOW_H

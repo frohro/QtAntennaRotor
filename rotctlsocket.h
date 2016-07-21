@@ -6,6 +6,9 @@
 #include <QDebug>
 #include <QString>
 #include <QStringList>
+#include <QLineEdit>
+#include <QAbstractSocket>
+#include <QHostAddress>
 
 class RotCtlSocket : public QObject
 {
@@ -13,15 +16,17 @@ class RotCtlSocket : public QObject
 public:
     explicit RotCtlSocket(QObject *parent = 0);
     void Cleanup();
+    bool connected;
 
 signals:
     void bearingReturned(int);
+    void isConnected(bool connected);
     
 public slots:
-   // void moveToBearing(int);
     void getPresentBearing();
     void Connect();
     void setBearing(int bearing);
+    void setIPAddress(QString ipAddress);
 
 private:
     QTcpSocket *socket;
@@ -29,7 +34,9 @@ private:
     QString azimuth;
     QStringList bearingList;
     float azimuthF;
-    
+    QHostAddress ipAddress;
+    int port;
+
 };
 
 #endif // ROTCTLSOCKET_H
