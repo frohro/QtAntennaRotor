@@ -5,17 +5,12 @@
 RotCtlSocket::RotCtlSocket(QObject *parent) :
     QObject(parent)
 {
-    ipAddress = "192.168.2.155";
-    port = 4533;
     socket = new QTcpSocket(this);
 }
 
 void RotCtlSocket::Connect()
 {
-
-    // connect
     qDebug() << "In Connect routine....";
-    //socket->connectToHost("192.168.2.155", 4533 );
     if(socket->state() == QTcpSocket::ConnectedState)
     {
         socket->disconnectFromHost();
@@ -30,7 +25,6 @@ void RotCtlSocket::Connect()
         qDebug() << "Connected!";
         connected = true;
     }
-
     else
     {
         qDebug() << "Not connected!";
@@ -85,15 +79,38 @@ void RotCtlSocket::setBearing(int bearing)
         qDebug() << "Socket not connected!  Cannot set bearing.";
     }
 }
-void RotCtlSocket:: setIPAddress(QString ip)
+
+void RotCtlSocket:: setIPAddress(QString ipAddressString)
 {
-    if(ipAddress.setAddress(ip))
+    qDebug() << "port in setIPAddress is: " << port;
+    if(bool goodAddress = ipAddress.setAddress(ipAddressString)&&(port != 65535)) // To account for first time when port not set.
     {
-        qDebug() << "IP Address or Hostname Seems okay!\n";
-        qDebug() << "In RotCtlSocket::setIPAddress(QString), IPAddress is:" << ipAddress;
+        qDebug() << "IP Address or Hostname Seems okay!";
+        qDebug() << "In RotCtlSocket::setIPAddress(QString), IPAddress is:" << getIPAddress();
+        Connect();
+    }
+//    else if(!goodAddress)  // This doesn't seem to work right.  Above it passes, but here it doesn't.
+//        qDebug() << "Problem with IP Address!\n";
+}
+
+void RotCtlSocket:: setPort(int portChange)
+{
+    if((portChange < 65536)&&(portChange > 0))
+    {
+        qDebug() << "Port number Seems okay!";
+        port = portChange;
         Connect();
     }
     else
-        qDebug() << "Problem with IP Addlress!\n";
-    //ipAddress = ip;
+        qDebug() << "Problem with port number!\n";
+}
+
+QString RotCtlSocket::getIPAddress()
+{
+    return ipAddress.toString();
+}
+
+int RotCtlSocket::getPort()
+{
+    return port;
 }

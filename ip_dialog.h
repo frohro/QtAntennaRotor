@@ -35,6 +35,7 @@ public:
 
 signals:
      void changeIPAddress(QString);
+     void changePort(int);
 
 private slots:
      void on_buttonBox_accepted();

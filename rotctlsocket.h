@@ -9,6 +9,7 @@
 #include <QLineEdit>
 #include <QAbstractSocket>
 #include <QHostAddress>
+#include <QMessageBox>
 
 class RotCtlSocket : public QObject
 {
@@ -26,7 +27,10 @@ public slots:
     void getPresentBearing();
     void Connect();
     void setBearing(int bearing);
-    void setIPAddress(QString ipAddress);
+    void setIPAddress(QString ipAddressString);
+    void setPort(int portChange);
+    QString getIPAddress();
+    int getPort();
 
 private:
     QTcpSocket *socket;

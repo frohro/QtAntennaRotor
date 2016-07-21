@@ -14,13 +14,14 @@ MainWindow::MainWindow(QWidget *parent) :
     directionScene = new QGraphicsScene(this);
     directionScene->setSceneRect(-187,-222,400,400);
 
+    ourSettingsFile = QApplication::applicationDirPath().left(1) + ":/rotorSettings.ini";
+    loadSettings();
+    showConnectedButton(myRotCtlSocket.connected);
+
     ui->graphicsView->setScene(directionScene);
     ipDialog = new IP_Dialog(this);
-    myRotCtlSocket.Connect();
-    if((myRotCtlSocket.connected))
-        ui->connectButton->hide();
-    else
-        ui->connectButton->show();
+    ipDialog->ui->ipLineEdit->setText(myRotCtlSocket.getIPAddress());
+    ipDialog->ui->lineEdit->setText(QString::number(myRotCtlSocket.getPort()));
 
     assert(connect(rotationEstimateTimer,SIGNAL(timeout()),this,SLOT(updateProgressBar())));
     assert(connect(&myRotCtlSocket,SIGNAL(bearingReturned(int)),ui->lcdNumber,SLOT(display(int))));
@@ -31,13 +32,16 @@ MainWindow::MainWindow(QWidget *parent) :
     assert(connect(&myRotCtlSocket,SIGNAL(bearingReturned(int)),this,SLOT(updatePointingBearing(int))));
     assert(connect(ui->ipPushButton,SIGNAL(clicked()),this,SLOT(getIPAddress())));
     assert(connect(ipDialog,SIGNAL(changeIPAddress(QString)),this,SLOT(updateIPAddress(QString))));
+    assert(connect(ipDialog,SIGNAL(changePort(int)),this,SLOT(updatePort(int))));
     assert(connect(&myRotCtlSocket,SIGNAL(isConnected(bool)),this,SLOT(showConnectedButton(bool))));
 
-    myRotCtlSocket.getPresentBearing(); //Initialize the readout.
+    if(myRotCtlSocket.connected) myRotCtlSocket.getPresentBearing(); //Initialize the readout.
 }
 
 MainWindow::~MainWindow()
 {
+    qDebug() << "Closing down, writing settings, etc.";
+    saveSettings();
     myRotCtlSocket.Cleanup();
     delete ui;
 }
@@ -99,15 +103,16 @@ void MainWindow::on_connectButton_clicked()
         ui->connectButton->hide();
 }
 
-void MainWindow::updateIPAddress(QString ipAddress)
+void MainWindow::updateIPAddress(QString ipAddressString)
 {
-    qDebug() << "MainWindow::in updateIPAddress with IP address" << ipAddress;
+    qDebug() << "MainWindow::in updateIPAddress with IP address" << ipAddressString;
+    myRotCtlSocket.setIPAddress(ipAddressString);
+}
 
-    myRotCtlSocket.setIPAddress(ipAddress);
-    if((myRotCtlSocket.connected))
-        ui->connectButton->hide();
-    else
-        ui->connectButton->show();
+void MainWindow::updatePort(int port)
+{
+    qDebug() << "MainWindow::in updatePort with port" << port;
+    myRotCtlSocket.setPort(port);
 }
 
 void MainWindow::showConnectedButton(bool connected)
@@ -115,8 +120,32 @@ void MainWindow::showConnectedButton(bool connected)
     if(connected)
     {
         ui->connectButton->hide();
-        //myRotCtlSocket.getPresentBearing();
+        myRotCtlSocket.getPresentBearing();
     }
     else
         ui->connectButton->show();
+}
+
+
+void MainWindow::loadSettings()
+{
+    //QSettings settings(ourSettingsFile, QSettings::NativeFormat);
+    QSettings settings("rotor","rotor");
+
+    settings.beginGroup("Common");
+    updateIPAddress(settings.value("ipAddress", "192.168.2.156").toString());
+    updatePort(settings.value("port", 4533).toInt());
+    qDebug() << "Port in loadSettings is: " << settings.value("port",4533).toInt();
+    settings.endGroup();
+}
+
+void MainWindow::saveSettings()
+{
+//    QSettings settings(ourSettingsFile, QSettings::NativeFormat);
+    QSettings settings("rotor","rotor");
+
+    settings.beginGroup("Common");
+    settings.setValue("ipAddress", myRotCtlSocket.getIPAddress());
+    settings.setValue("port", myRotCtlSocket.getPort());
+    settings.endGroup();
 }

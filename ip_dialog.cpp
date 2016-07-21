@@ -21,6 +21,7 @@ void IP_Dialog::on_buttonBox_accepted()
     {
         qDebug() << "IP address changed to: " << ui->ipLineEdit->text();
         emit changeIPAddress(ui->ipLineEdit->text());
+        emit changePort(ui->lineEdit->text().toInt());
     }
     else
     {

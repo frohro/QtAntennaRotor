@@ -6,6 +6,8 @@
 #include <QPoint>
 #include <QGraphicsItem>
 #include <QtAlgorithms>
+#include <QSettings>
+#include <QApplication>
 
 #include "rotctlsocket.h"
 #include "directioncontrolview.h"
@@ -29,7 +31,7 @@ public:
     RotCtlSocket myRotCtlSocket;
     QTimer *rotationEstimateTimer;
     IP_Dialog *ipDialog;
-    //QLineF directionLine;
+
 signals:
     void setBearing(int);
     void newIPAddress(QString);
@@ -39,7 +41,8 @@ public slots:
     void updateProgressBar();
     void updatePointingBearing(int bearing);
     void getIPAddress();
-    void updateIPAddress(QString ipAddress);
+    void updateIPAddress(QString ipAddressString);
+    void updatePort(int port);
     void showConnectedButton(bool connected);
 
 protected:
@@ -51,6 +54,9 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QString ourSettingsFile;
+    void loadSettings();
+    void saveSettings();
 };
 
 #endif // MAINWINDOW_H
