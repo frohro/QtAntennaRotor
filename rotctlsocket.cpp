@@ -59,6 +59,7 @@ void RotCtlSocket::getPresentBearing()
     else
     {
         qDebug() << "Not connected.";
+        emit isConnected(connected);
     }
 }
 

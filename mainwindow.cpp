@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "unistd.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -14,18 +15,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     directionScene = new QGraphicsScene(this);
     directionScene->setSceneRect(-187,-222,400,400);
-
-    ourSettingsFile = QApplication::applicationDirPath().left(1) + ":/rotorSettings.ini";
-    loadSettings();
-    showConnectedButton(myRotCtlSocket.connected);
-
     ui->graphicsView->setScene(directionScene);
+
+    loadSettings();
+
+    showConnectedButton(myRotCtlSocket.connected);
 
     ipDialog = new IP_Dialog(this);
     ipDialog->ui->ipLineEdit->setText(myRotCtlSocket.getIPAddress());
     ipDialog->ui->lineEdit->setText(QString::number(myRotCtlSocket.getPort()));
-
-    on_actionCompass_triggered();
 
     assert(connect(rotationEstimateTimer,SIGNAL(timeout()),this,SLOT(updateProgressBar())));
     assert(connect(&myRotCtlSocket,SIGNAL(bearingReturned(int)),ui->lcdNumber,SLOT(display(int))));
@@ -133,16 +131,25 @@ void MainWindow::showConnectedButton(bool connected)
 
 void MainWindow::loadSettings()
 {
-    //QSettings settings(ourSettingsFile, QSettings::NativeFormat);
     QSettings settings("rotor","rotor");
 
     settings.beginGroup("Common");
     updateIPAddress(settings.value("ipAddress", "192.168.2.156").toString());
     updatePort(settings.value("port", 4533).toInt());
-    backgroundImageResource = settings.value("background","background-image:url(:/Images/compass.png)").toString();
-    this->centralWidget()->setStyleSheet(backgroundImageResource);
-
-
+    backgroundImage = static_cast<MainWindow::BackgroundImage>(settings.value("background",kl7na).toInt());
+    qDebug() << "backgroundImage is: " << backgroundImage;
+    if(backgroundImage == compass)
+    {
+        on_actionCompass_triggered();
+    }
+    else if(backgroundImage == kl7na)
+    {
+        on_actionKL7NA_Great_Circle_triggered();
+    }
+    else
+    {
+        qDebug() << "Loading background image settings did not work.";
+    }
     settings.endGroup();
 }
 
@@ -153,7 +160,7 @@ void MainWindow::saveSettings()
     settings.beginGroup("Common");
     settings.setValue("ipAddress", myRotCtlSocket.getIPAddress());
     settings.setValue("port", myRotCtlSocket.getPort());
-    settings.setValue("background",backgroundImageResource);
+    settings.setValue("background",backgroundImage);
     settings.endGroup();
 }
 
@@ -165,6 +172,7 @@ void MainWindow::on_actionHost_Address_triggered()
 
 void MainWindow::on_actionCompass_triggered()
 {
+    backgroundImage = compass;
     backgroundImageResource = tr("background-image:url(:/Images/compass.png)");
     this->centralWidget()->setStyleSheet(backgroundImageResource);
     ui->label_3->hide();
@@ -173,14 +181,18 @@ void MainWindow::on_actionCompass_triggered()
 
 void MainWindow::on_actionKL7NA_Great_Circle_triggered()
 {
+    qDebug() << "In on_actionKL7NA_Great_Circle_triggered, with backgroundImage starting as: " << backgroundImage;
+    backgroundImage = kl7na;
     backgroundImageResource = tr("background-image:url(:/Images/aeqd.png)");
-    this->centralWidget()->setStyleSheet(backgroundImageResource);
     ui->label_3->show();
     ui->groupBox->show();
+    this->centralWidget()->setStyleSheet(backgroundImageResource);
 }
 
 
 void MainWindow::on_actionAbout_triggered()
 {
-    QMessageBox::about(this,tr("QtAntennaRotor"), tr("This program connects to a remote server running hamlib's rotctld to rotate an antenna. GPL code from KL7NA."));
+    QMessageBox::about(this,tr("QtAntennaRotor"),
+                       tr("This program connects to a remote server running hamlib's rotctld to rotate an antenna. "
+                          "GPL code from KL7NA."));
 }

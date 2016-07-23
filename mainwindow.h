@@ -66,6 +66,8 @@ private:
     void loadSettings();
     void saveSettings();
     QString backgroundImageResource;
+    enum BackgroundImage {compass, kl7na};
+    BackgroundImage backgroundImage;
 };
 
 #endif // MAINWINDOW_H
