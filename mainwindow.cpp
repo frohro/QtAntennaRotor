@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->progressBar->setVisible(false);
     ui->graphicsView->centerOn(0,0);
+
     directionScene = new QGraphicsScene(this);
     directionScene->setSceneRect(-187,-222,400,400);
 
@@ -19,9 +20,12 @@ MainWindow::MainWindow(QWidget *parent) :
     showConnectedButton(myRotCtlSocket.connected);
 
     ui->graphicsView->setScene(directionScene);
+
     ipDialog = new IP_Dialog(this);
     ipDialog->ui->ipLineEdit->setText(myRotCtlSocket.getIPAddress());
     ipDialog->ui->lineEdit->setText(QString::number(myRotCtlSocket.getPort()));
+
+    on_actionCompass_triggered();
 
     assert(connect(rotationEstimateTimer,SIGNAL(timeout()),this,SLOT(updateProgressBar())));
     assert(connect(&myRotCtlSocket,SIGNAL(bearingReturned(int)),ui->lcdNumber,SLOT(display(int))));
@@ -30,7 +34,6 @@ MainWindow::MainWindow(QWidget *parent) :
     assert(connect(ui->graphicsView,SIGNAL(directionSelected(int,int)),this,SLOT(getNewDirection(int,int))));
     assert(connect(this,SIGNAL(setBearing(int)),&myRotCtlSocket,SLOT(setBearing(int))));
     assert(connect(&myRotCtlSocket,SIGNAL(bearingReturned(int)),this,SLOT(updatePointingBearing(int))));
-    assert(connect(ui->ipPushButton,SIGNAL(clicked()),this,SLOT(getIPAddress())));
     assert(connect(ipDialog,SIGNAL(changeIPAddress(QString)),this,SLOT(updateIPAddress(QString))));
     assert(connect(ipDialog,SIGNAL(changePort(int)),this,SLOT(updatePort(int))));
     assert(connect(&myRotCtlSocket,SIGNAL(isConnected(bool)),this,SLOT(showConnectedButton(bool))));
@@ -88,6 +91,7 @@ void MainWindow::updatePointingBearing(int bearing)
     QPen blueePen(Qt::blue);
     directionScene->clear();
     directionScene->addLine(0,0,radius*sin(bearing*3.14159/180),-radius*cos(bearing*3.14159/180),blackPen);
+    ui->lcdNumber->display(bearing);
 
 }
 
@@ -135,7 +139,10 @@ void MainWindow::loadSettings()
     settings.beginGroup("Common");
     updateIPAddress(settings.value("ipAddress", "192.168.2.156").toString());
     updatePort(settings.value("port", 4533).toInt());
-    qDebug() << "Port in loadSettings is: " << settings.value("port",4533).toInt();
+    backgroundImageResource = settings.value("background","background-image:url(:/Images/compass.png)").toString();
+    this->centralWidget()->setStyleSheet(backgroundImageResource);
+
+
     settings.endGroup();
 }
 
@@ -143,9 +150,35 @@ void MainWindow::saveSettings()
 {
 //    QSettings settings(ourSettingsFile, QSettings::NativeFormat);
     QSettings settings("rotor","rotor");
-
     settings.beginGroup("Common");
     settings.setValue("ipAddress", myRotCtlSocket.getIPAddress());
     settings.setValue("port", myRotCtlSocket.getPort());
+    settings.setValue("background",backgroundImageResource);
     settings.endGroup();
+}
+
+
+void MainWindow::on_actionHost_Address_triggered()
+{
+    ipDialog->show();
+}
+
+void MainWindow::on_actionCompass_triggered()
+{
+    backgroundImageResource = tr("background-image:url(:/Images/compass.png)");
+    this->centralWidget()->setStyleSheet(backgroundImageResource);
+    ui->label_3->hide();
+}
+
+void MainWindow::on_actionKL7NA_Great_Circle_triggered()
+{
+    backgroundImageResource = tr("background-image:url(:/Images/aeqd.png)");
+    this->centralWidget()->setStyleSheet(backgroundImageResource);
+    ui->label_3->show();
+}
+
+
+void MainWindow::on_actionAbout_triggered()
+{
+    QMessageBox::about(this,tr("QtAntennaRotor"), tr("This program connects to a remote server running hamlib's rotctld to rotate an antenna. GPL code from KL7NA."));
 }

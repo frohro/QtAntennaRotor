@@ -61,3 +61,7 @@ OTHER_FILES += \
 
 RESOURCES += \
     Resources.qrc
+
+DISTFILES += \
+    compass.jpg \
+    compass.png

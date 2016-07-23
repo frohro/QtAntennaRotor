@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/Images">
         <file>aeqd.png</file>
+        <file>compass.png</file>
     </qresource>
 </RCC>

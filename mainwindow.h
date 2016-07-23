@@ -52,11 +52,20 @@ protected:
 private slots:
     void on_connectButton_clicked();
 
+    void on_actionHost_Address_triggered();
+
+    void on_actionCompass_triggered();
+
+    void on_actionKL7NA_Great_Circle_triggered();
+
+    void on_actionAbout_triggered();
+
 private:
     Ui::MainWindow *ui;
     QString ourSettingsFile;
     void loadSettings();
     void saveSettings();
+    QString backgroundImageResource;
 };
 
 #endif // MAINWINDOW_H
