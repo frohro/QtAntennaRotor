@@ -168,6 +168,7 @@ void MainWindow::on_actionCompass_triggered()
     backgroundImageResource = tr("background-image:url(:/Images/compass.png)");
     this->centralWidget()->setStyleSheet(backgroundImageResource);
     ui->label_3->hide();
+    ui->groupBox->hide();
 }
 
 void MainWindow::on_actionKL7NA_Great_Circle_triggered()
@@ -175,6 +176,7 @@ void MainWindow::on_actionKL7NA_Great_Circle_triggered()
     backgroundImageResource = tr("background-image:url(:/Images/aeqd.png)");
     this->centralWidget()->setStyleSheet(backgroundImageResource);
     ui->label_3->show();
+    ui->groupBox->show();
 }
 
 
