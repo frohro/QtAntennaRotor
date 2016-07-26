@@ -60,6 +60,8 @@ private slots:
 
     void on_actionAbout_triggered();
 
+    void on_actionHamlib_Server_Setup_triggered();
+
 private:
     Ui::MainWindow *ui;
     QString ourSettingsFile;

@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "unistd.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -195,4 +194,23 @@ void MainWindow::on_actionAbout_triggered()
     QMessageBox::about(this,tr("QtAntennaRotor"),
                        tr("This program connects to a remote server running hamlib's rotctld to rotate an antenna. "
                           "GPL code from KL7NA."));
+}
+
+void MainWindow::on_actionHamlib_Server_Setup_triggered()
+{
+
+    QMessageBox::about(this,tr("Setting up a server for QtAntennaRotor"),
+                       tr("This program works with hamlib's rotor control library.  For example in my setup, I have"
+                          " a small server running Ubintu that connects to the network and to a Heathkit Intellirotor "
+                          "via a USB to RS-232 adapter.  The USB to serial adapter is plugged into a USB port on the server, "
+                          "and is available at /dev/ttyUSB0.  "
+                          "On the server I have hamlib2 installed via: \n\n $ sudo apt-get install libhamlib2  \n \n"
+                          "I run the rotor control daemon on the server with the command:  \n \n"
+                          "$ rotctld -m 801 -r /dev/ttyUSB0 -L -Cmax_az=160,min_az=-160 -vvvvvvv \n \n"
+                          "On my laptop, I run QtAntennaRotor, select the server's IP address, and default port (4533) "
+                          "to connect to the rotctld daemon running on the server.  I can rotate my antennas this way "
+                          ""
+                          "remotely from my laptop.  If I need to do it really remotely, far from home, a VPN "
+                          "makes it feasible without exposing "
+                          "my rotor to mischief that someone on the Internet might try."));
 }
